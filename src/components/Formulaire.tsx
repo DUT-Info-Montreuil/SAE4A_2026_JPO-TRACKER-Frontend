@@ -97,9 +97,9 @@ export default function FormulaireVisiteur() {
                                 <div className="d-flex gap-4 mb-3">
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="formationOrigine"
-                                               id="bac" value="bac" checked={form.formationOrigine === "bac-general"}
+                                               id="bac-general" value="bac-general" checked={form.formationOrigine === "bac-general"}
                                                onChange={handleChange} required />
-                                        <label className="form-check-label" htmlFor="bac">Lycéen (Bac)</label>
+                                        <label className="form-check-label" htmlFor="bac-general">Lycéen</label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="formationOrigine"
