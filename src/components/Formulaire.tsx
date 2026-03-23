@@ -60,14 +60,14 @@ export default function FormulaireVisiteur() {
                                         <div className="form-floating">
                                             <input name="email" type="email" className="form-control" placeholder="Email"
                                                    value={form.email} onChange={handleChange} />
-                                            <label>Email <span className="text-muted">(facultatif)</span></label>
+                                            <label>Email</label>
                                         </div>
                                     </div>
                                     <div className="col-sm-4">
                                         <div className="form-floating">
                                             <input name="telephone" type="number" className="form-control" placeholder="Téléphone"
                                                    value={form.telephone} onChange={handleChange} />
-                                            <label>Téléphone <span className="text-muted">(facultatif)</span></label>
+                                            <label>Téléphone (facultatif)</label>
                                         </div>
                                     </div>
                                 </div>
