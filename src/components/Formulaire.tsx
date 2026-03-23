@@ -1,11 +1,9 @@
 import {useState, type ChangeEvent} from "react";
-
-import { initialValues, formations, type FormValues } from "../type/TypeForm.tsx";
+import {initialValues, formations, type FormValues, typesFormationOrigine} from "../type/TypeForm.tsx";
+import ServiceVisiteur from "../services/ServiceVisiteur.tsx";
 
 export default function FormulaireVisiteur() {
     const [form, setForm] = useState<FormValues>(initialValues);
-    const [submitted, setSubmitted] = useState(false);
-
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
         const val = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
@@ -14,13 +12,10 @@ export default function FormulaireVisiteur() {
 
     const handleSubmit = (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
-        setSubmitted(true);
+        ServiceVisiteur.ajouterVisiteur(form).then(() => {
+            setForm(initialValues);
+        })
     };
-
-    if (submitted) {
-        setForm(initialValues);
-        setSubmitted(false);
-    }
 
     return (
         <div className="container py-4">
@@ -36,14 +31,14 @@ export default function FormulaireVisiteur() {
                                         <div className="form-floating">
                                             <input name="nom" className="form-control" placeholder="Nom"
                                                    value={form.nom} onChange={handleChange} required />
-                                            <label>Nom</label>
+                                            <label>Nom*</label>
                                         </div>
                                     </div>
                                     <div className="col-sm-6">
                                         <div className="form-floating">
                                             <input name="prenom" className="form-control" placeholder="Prénom"
                                                    value={form.prenom} onChange={handleChange} required />
-                                            <label>Prénom</label>
+                                            <label>Prénom*</label>
                                         </div>
                                     </div>
                                 </div>
@@ -51,22 +46,25 @@ export default function FormulaireVisiteur() {
                                 <div className="row g-3 mt-1">
                                     <div className="col-sm-4">
                                         <div className="form-floating">
-                                            <input name="age" type="number" className="form-control" placeholder="Age"
-                                                   min={0} max={99} value={form.age} onChange={handleChange} required />
-                                            <label>Age</label>
+                                            <input name="dateDeNaissance" type="date" className="form-control"
+                                                   placeholder="Date de naissance"
+                                                   value={form.dateDeNaissance} onChange={handleChange} required/>
+                                            <label>Date de naissance*</label>
                                         </div>
                                     </div>
                                     <div className="col-sm-4">
                                         <div className="form-floating">
-                                            <input name="email" type="email" className="form-control" placeholder="Email"
-                                                   value={form.email} onChange={handleChange} />
+                                            <input name="email" type="email" className="form-control"
+                                                   placeholder="Email"
+                                                   value={form.email} onChange={handleChange}/>
                                             <label>Email</label>
                                         </div>
                                     </div>
                                     <div className="col-sm-4">
                                         <div className="form-floating">
-                                            <input name="telephone" type="number" className="form-control" placeholder="Téléphone"
-                                                   value={form.telephone} onChange={handleChange} />
+                                            <input name="telephone" type="tel" className="form-control"
+                                                   placeholder="Téléphone"
+                                                   value={form.telephone} onChange={handleChange}/>
                                             <label>Téléphone (facultatif)</label>
                                         </div>
                                     </div>
@@ -76,16 +74,24 @@ export default function FormulaireVisiteur() {
                                     <div className="col-sm-8">
                                         <div className="form-floating">
                                             <input name="ville" className="form-control" placeholder="Ville" type="text"
-                                                   value={form.ville} onChange={handleChange} required />
-                                            <label>Ville</label>
+                                                   value={form.ville} onChange={handleChange} required/>
+                                            <label>Ville*</label>
                                         </div>
                                     </div>
                                     <div className="col-sm-4">
                                         <div className="form-floating">
-                                            <input name="codePostal" className="form-control" placeholder="Code postal" type="number"
-                                                   maxLength={5} value={form.codePostal} onChange={handleChange} required />
-                                            <label>Code postal</label>
+                                            <input name="codePostal" className="form-control" placeholder="Code postal"
+                                                   type="number"
+                                                   maxLength={5} value={form.codePostal} onChange={handleChange}
+                                                   required/>
+                                            <label>Code postal*</label>
                                         </div>
+                                    </div>
+                                    <div className="form-check mt-3">
+                                        <input className="form-check-input" type="checkbox" id="situationParticuliere"
+                                               name="situationParticuliere" checked={form.situationParticuliere}
+                                               onChange={handleChange}/>
+                                        <label className="form-check-label" htmlFor="situationParticuliere">Est ce que j'ai une situation particulière ?</label>
                                     </div>
                                 </div>
 
@@ -94,26 +100,33 @@ export default function FormulaireVisiteur() {
 
                         <div className="card shadow-sm mb-3">
                             <div className="card-body">
-                                <div className="d-flex gap-4 mb-3">
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="formationOrigine"
-                                               id="bac-general" value="bac-general" checked={form.formationOrigine === "bac-general"}
-                                               onChange={handleChange} required />
-                                        <label className="form-check-label" htmlFor="bac-general">Lycéen</label>
+                                <div className="row g-3">
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+                                            <select name="formationOrigine" className="form-select"
+                                                    value={form.formationOrigine} onChange={handleChange} required>
+                                                <option value=""></option>
+                                                {typesFormationOrigine.map((t) => <option key={t}>{t}</option>)}
+                                            </select>
+                                            <label>Formation actuelle*</label>
+                                        </div>
                                     </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="formationOrigine"
-                                               id="reorientation" value="reorientation" checked={form.formationOrigine === "reorientation"}
-                                               onChange={handleChange} required />
-                                        <label className="form-check-label" htmlFor="reorientation">Étudiant en réorientation</label>
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+                                            <input name="formationOrigineDetail" className="form-control"
+                                                   placeholder="Précisez votre formation"
+                                                   value={form.formationOrigineDetail} onChange={handleChange}/>
+                                            <label>ex: Lience informatique</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="form-floating mb-3">
+                                <div className="form-floating mt-3 mb-3">
                                     <input name="lycee" className="form-control" placeholder="Lycée"
-                                           value={form.lycee} onChange={handleChange} required />
+                                           value={form.lycee} onChange={handleChange} required/>
                                     <label>Lycée / Établissement de provenance</label>
                                 </div>
+
 
                                 <div className="form-floating">
                                     <select name="formationInteressee" className="form-select"
@@ -123,7 +136,6 @@ export default function FormulaireVisiteur() {
                                     </select>
                                     <label>Formation qui vous intéresse</label>
                                 </div>
-
                             </div>
                         </div>
 
@@ -132,21 +144,17 @@ export default function FormulaireVisiteur() {
 
                                 <label className="form-label fw-medium">Souhaitez-vous participer à une journée d'immersion ?</label>
                                 <div className="d-flex gap-4 mb-3">
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="immersion"
-                                               id="immersion_oui" value="oui" checked={form.immersion === "oui"}
-                                               onChange={handleChange} required />
-                                        <label className="form-check-label" htmlFor="immersion_oui">Oui</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="immersion"
-                                               id="immersion_non" value="non" checked={form.immersion === "non"}
-                                               onChange={handleChange} required />
-                                        <label className="form-check-label" htmlFor="immersion_non">Non</label>
+                                    <div className="form-check mb-3">
+                                        <input className="form-check-input" type="checkbox" id="immersion"
+                                               name="immersion" checked={form.immersion}
+                                               onChange={handleChange}/>
+                                        <label className="form-check-label" htmlFor="immersion">
+                                            Je souhaite participer à une journée d'immersion
+                                        </label>
                                     </div>
                                 </div>
 
-                                {form.immersion === "oui" && (
+                                {form.immersion && (
                                     <div className="form-floating">
                                         <select name="typeEvenement" className="form-select"
                                                 value={form.typeEvenement} onChange={handleChange} required>
@@ -172,7 +180,7 @@ export default function FormulaireVisiteur() {
                             </div>
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-lg">Valider</button>
+                        <button type="submit" className="btn btn-primary btn-lg" disabled={!form.rgpd}>Valider</button>
 
                     </form>
                 </div>

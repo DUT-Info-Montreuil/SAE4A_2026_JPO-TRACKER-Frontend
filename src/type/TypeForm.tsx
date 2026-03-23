@@ -2,35 +2,55 @@ export interface FormValues {
     nom: string;
     prenom: string;
     email: string;
-    telephone: string;
-    formationOrigine: "bac-general" | "reorientation" | "";
-    formationInteressee: string;
+    telephone ?: string;
+    dateDeNaissance: string;
+    situationParticuliere: boolean;
+    formationOrigine: string;
+    formationOrigineDetail: string;
     lycee: string;
-    age: string;
+    formationInteressee: string;
     ville: string;
     codePostal: string;
-    immersion: "oui" | "non" | "";
+    immersion: boolean;
     typeEvenement: "jpo" | "forum" | "autre" | "";
     rgpd: boolean;
 }
+
 
 export const initialValues: FormValues = {
     nom: "",
     prenom: "",
     email: "",
     telephone: "",
+    dateDeNaissance: "",
+    situationParticuliere: false,
     formationOrigine: "",
-    formationInteressee: "",
+    formationOrigineDetail: "",
     lycee: "",
-    age: "",
+    formationInteressee: "",
     ville: "",
     codePostal: "",
-    immersion: "",
+    immersion: false,
     typeEvenement: "",
     rgpd: false,
 };
 
+
 export const formations = [
     "BUT informatique",
-    "Licence informatique"
+    "BUT GACO",
+    "BUT TC",
+];
+
+
+export const typesFormationOrigine = [
+    "Lycéen (Bac général)",
+    "Lycéen (Bac technologique)",
+    "Lycéen (Bac professionnel)",
+    "BTS",
+    "BUT",
+    "Licence",
+    "Prépa",
+    "Master",
+    "Autre",
 ];
