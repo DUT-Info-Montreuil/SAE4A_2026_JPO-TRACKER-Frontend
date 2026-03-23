@@ -1,11 +1,16 @@
-import FormInscription from "./components/Formulaire.tsx";
+import ListerVisiteurs from "./components/ListerVisiteurs.tsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import FormulaireVisiteur from "./components/Formulaire.tsx";
 
 function App() {
 
   return (
-    <>
-      <FormInscription/>
-    </>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<FormulaireVisiteur />} />
+              <Route path="/visiteurs" element={<ListerVisiteurs />} />
+          </Routes>
+      </BrowserRouter>
   )
 }
 
