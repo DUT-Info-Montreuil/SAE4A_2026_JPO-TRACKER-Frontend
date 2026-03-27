@@ -22,7 +22,7 @@ export function useVisiteurs (){
     }
 
     function reinitialiser() {
-        setFiltres(filtresInitiaux);
+        setFiltres({...filtres,...filtresInitiaux});
         charger(filtresInitiaux)
     }
 
