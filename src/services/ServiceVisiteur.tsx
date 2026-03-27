@@ -61,7 +61,7 @@ export default class ServiceVisiteur {
         if (filtres?.reorientation) f.append("reorientation", "true");
         if (filtres?.situationParticuliere) f.append("situationParticuliere", "true");
 
-        const query = f.toString() ? `${f.toString()}`: "";
+        const query = f.toString() ? `?${f.toString()}`: "";
 
         return fetch(`${URL}/visiteurs/${query}`)
             .then(res => res.json())

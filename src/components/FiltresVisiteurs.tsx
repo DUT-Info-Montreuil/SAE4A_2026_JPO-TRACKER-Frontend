@@ -68,7 +68,7 @@ export default function FiltresVisiteurs({filtres, onFiltres, onReinit}: Filtres
                     />
                     <label htmlFor="situationParticuliere">Dossier particulier uniquement</label>
                 </div>
-                <button onClick={onReinit}></button>
+                <button onClick={onReinit}>Reset</button>
             </div>
         </div>
 
