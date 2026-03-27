@@ -1,7 +1,7 @@
 export interface Filtres {
     recherche: string;
     departement: string;
-    typeBac: string;
+    formationOrigine: string;
     reorientation: boolean;
     situationParticuliere: boolean;
 }
@@ -9,7 +9,7 @@ export interface Filtres {
 export const filtresInitiaux: Filtres = {
     recherche: "",
     departement: "",
-    typeBac: "",
+    formationOrigine: "",
     reorientation: false,
     situationParticuliere: false
 }

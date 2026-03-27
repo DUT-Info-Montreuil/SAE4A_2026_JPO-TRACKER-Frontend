@@ -3,7 +3,7 @@ export interface TypeVisiteur {
     prenom: string;
     email: string;
     telephone ?:number;
-    formation_interessee?: string;
-    formation_origine?: { type: string; detail: string };
-    situation_particulier?: boolean;
+    formationInteressee?: string;
+    formationOrigine?: { type: string; detail: string };
+    situationParticulier?: boolean;
 }

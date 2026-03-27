@@ -4,7 +4,7 @@ import {useVisiteurs} from "../hook/UseVisiteurs.tsx";
 import FiltresVisiteurs from "./FiltresVisiteurs.tsx";
 
 export default function ListerVisiteurs (){
-    const {visiteursFiltres, filtres, recherche, appliquerRecherche, appliquerFiltres, reinitialiser} = useVisiteurs();
+    const {visiteurs, filtres, appliquerFiltres, reinitialiser} = useVisiteurs();
 
     return (
         <div className="table-responsive container">
@@ -12,13 +12,11 @@ export default function ListerVisiteurs (){
 
             <FiltresVisiteurs
                 filtres={filtres}
-                recherche={recherche}
-                onRecherche={appliquerRecherche}
                 onFiltres={appliquerFiltres}
                 onReinit={reinitialiser}
             />
 
-            <p className="text-muted small mb-2">résultats : {visiteursFiltres.length}</p>
+            <p className="text-muted small mb-2">résultats : {visiteurs.length}</p>
 
             <table className="table table-striped table-hover align-middle">
                 <thead>
@@ -30,7 +28,7 @@ export default function ListerVisiteurs (){
                 </tr>
                 </thead>
                 <tbody>
-                {visiteursFiltres.map(v => (
+                {visiteurs.map(v => (
                     <VisiteurCard key={v.email} visiteur={v}/>
                 ))}
                 </tbody>

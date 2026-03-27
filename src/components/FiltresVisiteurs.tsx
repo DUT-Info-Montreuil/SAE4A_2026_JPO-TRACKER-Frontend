@@ -4,17 +4,15 @@ import {formations, typesFormationOrigine} from "../type/TypeForm.tsx";
 
 interface FiltresVisiteursProps {
     filtres: Filtres;
-    recherche: string;
-    onRecherche: (v: string) => void;
     onFiltres: (f: Partial<Filtres>) => void;
     onReinit: () => void;
 }
 
-export default function FiltresVisiteurs({filtres, recherche, onRecherche, onFiltres, onReinit}: FiltresVisiteursProps) {
-    const [saisie, setSaisie] = useState(recherche);
+export default function FiltresVisiteurs({filtres, onFiltres, onReinit}: FiltresVisiteursProps) {
+    const [saisie, setSaisie] = useState(filtres.recherche);
 
     function handleOk() {
-        onRecherche(saisie);
+        onFiltres({recherche: saisie})
     }
 
     function handleCheck(e: ChangeEvent<HTMLInputElement>) {
