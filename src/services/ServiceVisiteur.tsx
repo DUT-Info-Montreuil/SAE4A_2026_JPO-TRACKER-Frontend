@@ -52,7 +52,7 @@ export default class ServiceVisiteur {
             .catch(error => console.error(error));
     }
 
-    static recupVisiteurs (filtres?: Partial<Filtres>): Promise<TypeVisiteur[]>{
+    static recupVisiteurs (filtres?: Partial<Filtres>, limit: number = 10): Promise<{visiteurs:TypeVisiteur[], total: number}>{
         const f = new URLSearchParams();
 
         if (filtres?.recherche) f.append("search", filtres.recherche);
@@ -60,12 +60,17 @@ export default class ServiceVisiteur {
         if (filtres?.formationOrigine) f.append("formationOrigine", filtres.formationOrigine);
         if (filtres?.reorientation) f.append("reorientation", "true");
         if (filtres?.situationParticuliere) f.append("situationParticuliere", "true");
+        f.append("page", String(filtres?.page ?? 1));
+        f.append("limit", String(limit));
 
         const query = f.toString() ? `?${f.toString()}`: "";
 
-        return fetch(`${URL}/visiteurs/${query}`)
+        return fetch(`${URL}/visiteurs/filtrer${query}`)
             .then(res => res.json())
-            .catch(error => console.error(error))
+            .catch(error => {
+                console.error(error)
+                return {visiteurs: [], total: 0}
+            })
     }
 
 }
