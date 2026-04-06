@@ -8,7 +8,7 @@ function App() {
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<FormulaireVisiteur />} />
-              <Route path="/visiteurs" element={<ListerVisiteurs />} />
+              <Route path="/visiteurs/filtrer/" element={<ListerVisiteurs />} />
           </Routes>
       </BrowserRouter>
   )

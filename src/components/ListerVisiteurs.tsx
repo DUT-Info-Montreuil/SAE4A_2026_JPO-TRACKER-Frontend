@@ -2,9 +2,10 @@
 import VisiteurCard from "./VisiteurCard.tsx";
 import {useVisiteurs} from "../hook/UseVisiteurs.tsx";
 import FiltresVisiteurs from "./FiltresVisiteurs.tsx";
+import Pagination from "./Pagination.tsx";
 
 export default function ListerVisiteurs (){
-    const {visiteurs, filtres, appliquerFiltres, reinitialiser} = useVisiteurs();
+    const {visiteurs, filtres, appliquerFiltres, reinitialiser, totalPages, changerPage} = useVisiteurs();
 
     return (
         <div className="table-responsive container">
@@ -33,6 +34,12 @@ export default function ListerVisiteurs (){
                 ))}
                 </tbody>
             </table>
+
+            <Pagination
+                pageActuelle={filtres.page}
+                totalPages={totalPages}
+                onChangerPage={changerPage}
+            />
         </div>
     );
 }

@@ -4,6 +4,7 @@ export interface Filtres {
     formationOrigine: string;
     reorientation: boolean;
     situationParticuliere: boolean;
+    page: number;
 }
 
 export const filtresInitiaux: Filtres = {
@@ -11,5 +12,6 @@ export const filtresInitiaux: Filtres = {
     departement: "",
     formationOrigine: "",
     reorientation: false,
-    situationParticuliere: false
+    situationParticuliere: false,
+    page: 1
 }
