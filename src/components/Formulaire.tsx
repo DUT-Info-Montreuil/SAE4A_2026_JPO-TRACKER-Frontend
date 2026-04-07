@@ -12,7 +12,7 @@ export default function FormulaireVisiteur() {
 
     const handleSubmit = (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
-        ServiceVisiteur.ajouterVisiteur(form).then(() => {
+        ServiceVisiteur.putVisiteur(form).then(() => {
             setForm(initialValues);
         })
     };

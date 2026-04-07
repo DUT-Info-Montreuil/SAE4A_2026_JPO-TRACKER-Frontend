@@ -1,4 +1,5 @@
 export interface TypeVisiteur {
+    id: string;
     nom: string;
     prenom: string;
     email: string;

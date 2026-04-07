@@ -8,7 +8,7 @@ const URL: string = "http://localhost:5000";
 export default class ServiceVisiteur {
 
 
-    static ajouterVisiteur (visiteur: FormValues): Promise<any> {
+    static putVisiteur (visiteur: FormValues): Promise<any> {
         const donneeVisiteur = {
             nom: visiteur.nom,
             prenom: visiteur.prenom,
@@ -52,7 +52,7 @@ export default class ServiceVisiteur {
             .catch(error => console.error(error));
     }
 
-    static recupVisiteurs (filtres?: Partial<Filtres>, limit: number = 10): Promise<{visiteurs:TypeVisiteur[], total: number}>{
+    static getVisiteurs (filtres?: Partial<Filtres>, limit: number = 10): Promise<{visiteurs:TypeVisiteur[], total: number}>{
         const f = new URLSearchParams();
 
         if (filtres?.recherche) f.append("search", filtres.recherche);
@@ -71,6 +71,15 @@ export default class ServiceVisiteur {
                 console.error(error)
                 return {visiteurs: [], total: 0}
             })
+    }
+
+    static getVisiteurById (id: string): Promise<any> {
+        return fetch(`${URL}/visiteurs/${id}`)
+            .then(res => res.json())
+            .catch(error => {
+                console.error(error);
+                return null;
+            });
     }
 
 }

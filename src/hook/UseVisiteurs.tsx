@@ -15,7 +15,7 @@ export function useVisiteurs (){
     }, []);
 
     function charger(f:Filtres) {
-        ServiceVisiteur.recupVisiteurs(f, LIMIT)
+        ServiceVisiteur.getVisiteurs(f, LIMIT)
             .then(data => {
                 setVisiteurs(data.visiteurs)
                 setTotalPages(Math.ceil(data.total / LIMIT))
