@@ -5,7 +5,6 @@ export default function BoutonSupprimerVisiteurs() {
         if (!confirm("Supprimer TOUS les visiteurs ? Cette action est irréversible.")) return;
         ServiceVisiteur.deleteTout()
             .then(() => alert("Base vidée avec succès."))
-            .catch(() => alert("Erreur lors de la suppression."));
     }
 
     return (
