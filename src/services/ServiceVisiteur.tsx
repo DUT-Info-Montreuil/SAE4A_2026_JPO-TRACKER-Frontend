@@ -1,5 +1,6 @@
 import type {FormValues} from "../type/TypeForm.tsx";
 import type {TypeVisiteur} from "../type/TypeVisiteur.tsx";
+import type {Filtres} from "../type/Typefiltres.tsx";
 
 const URL: string = "http://localhost:5000";
 
@@ -51,10 +52,25 @@ export default class ServiceVisiteur {
             .catch(error => console.error(error));
     }
 
-    static recupVisiteurs (): Promise<TypeVisiteur[]>{
-        return fetch(`${URL}/visiteurs/`)
+    static recupVisiteurs (filtres?: Partial<Filtres>, limit: number = 10): Promise<{visiteurs:TypeVisiteur[], total: number}>{
+        const f = new URLSearchParams();
+
+        if (filtres?.recherche) f.append("search", filtres.recherche);
+        if (filtres?.departement) f.append("departement", filtres.departement);
+        if (filtres?.formationOrigine) f.append("formationOrigine", filtres.formationOrigine);
+        if (filtres?.reorientation) f.append("reorientation", "true");
+        if (filtres?.situationParticuliere) f.append("situationParticuliere", "true");
+        f.append("page", String(filtres?.page ?? 1));
+        f.append("limit", String(limit));
+
+        const query = f.toString() ? `?${f.toString()}`: "";
+
+        return fetch(`${URL}/visiteurs/filtrer${query}`)
             .then(res => res.json())
-            .catch(error => console.error(error))
+            .catch(error => {
+                console.error(error)
+                return {visiteurs: [], total: 0}
+            })
     }
     static recupVisiteursFull (): Promise<TypeVisiteur[]>{
         return fetch(`${URL}/visiteurs/full`)
