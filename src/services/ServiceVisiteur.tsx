@@ -56,5 +56,10 @@ export default class ServiceVisiteur {
             .then(res => res.json())
             .catch(error => console.error(error))
     }
+    static recupVisiteursFull (): Promise<TypeVisiteur[]>{
+        return fetch(`${URL}/visiteurs/full`)
+            .then(res => res.json())
+            .catch(error => console.error(error))
+    }
 
 }

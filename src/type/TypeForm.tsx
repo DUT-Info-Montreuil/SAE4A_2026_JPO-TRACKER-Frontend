@@ -39,7 +39,8 @@ export const initialValues: FormValues = {
 export const formations = [
     "BUT informatique",
     "BUT GACO",
-    "BUT TC",
+    "BUT QLIO",
+    "BUT INFO-COM",
 ];
 
 

@@ -7,7 +7,7 @@ export default function ListerVisiteurs (){
     const [visiteurs, setVisiteurs] = useState<TypeVisiteur[]>([]);
 
     useEffect(() => {
-        ServiceVisiteur.recupVisiteurs().then(data => setVisiteurs(data))
+        ServiceVisiteur.recupVisiteursFull().then(data => setVisiteurs(data))
     })
 
     return (
