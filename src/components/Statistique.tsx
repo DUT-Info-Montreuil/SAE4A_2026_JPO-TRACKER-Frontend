@@ -4,7 +4,6 @@ import {
     CategoryScale,
     LinearScale,
     BarElement,
-    LineElement,
     PointElement,
     ArcElement,
     Title,
@@ -12,12 +11,11 @@ import {
     Legend,
     Filler,
 } from "chart.js";
-import { Bar, Line, Pie, Doughnut } from "react-chartjs-2";
+import { Bar, Pie, Doughnut } from "react-chartjs-2";
 import ServiceVisiteur from "../services/ServiceVisiteur.tsx";
-import { formations, typesFormationOrigine } from "../type/TypeForm.tsx";
 import "./dashboard.css"
 Chart.register(
-    CategoryScale, LinearScale, BarElement, LineElement,
+    CategoryScale, LinearScale, BarElement,
     PointElement, ArcElement, Title, Tooltip, Legend, Filler
 );
 
@@ -35,7 +33,7 @@ interface VisiteurComplet {
     evenement?: { type?: string | null; date_visite?: { $date: string } | string };
     immersion?: { souhaite_participer?: boolean | string; statut?: string };
     rgpd?: { consentement_collecte?: boolean; consentement_contact?: boolean };
-    meta?: { source_saisie?: string; annee_campagne?: number; created_at?: string };
+    meta?: { source_saisie?: string; annee_campagne?: number; created_at?: { $date: string } | string };
 }
 
 const PALETTE = [
@@ -43,9 +41,18 @@ const PALETTE = [
     "#ec4899","#8b5cf6","#14b8a6","#f97316","#06b6d4",
 ];
 
+const EVENEMENT_LABELS: Record<string, string> = {
+    jpo:              "JPO",
+    portes_ouvertes:  "Portes ouvertes",
+    salon_virtuel:    "Salon virtuel",
+    salon:            "Salon",
+    evenement:        "Événement",
+    forum:            "Forum",
+    autre:            "Autre",
+};
+
 const CHART_TYPES = [
     { id: "bar",      label: "Barres",    icon: "" },
-    { id: "line",     label: "Ligne",     icon: "" },
     { id: "pie",      label: "Camembert", icon: "" },
     { id: "doughnut", label: "Anneau",    icon: "" },
 ] as const;
@@ -62,9 +69,6 @@ const METRICS = [
 ] as const;
 
 type MetricId = typeof METRICS[number]["id"];
-
-// Le graphique "Ligne" n'est disponible que pour la métrique "etudiant par jour"
-const LINE_ONLY_METRIC: MetricId = "etudiant par jour";
 
 function extractMetricData(visiteurs: VisiteurComplet[], metricId: MetricId) {
     const counts: Record<string, number> = {};
@@ -122,7 +126,6 @@ function buildChartData(labels: string[], values: number[], chartType: ChartType
             borderWidth: 2,
             borderRadius: chartType === "bar" ? 6 : 0,
             tension: 0.4,
-            fill: chartType === "line",
             pointBackgroundColor: PALETTE[0],
             pointRadius: 5,
         }],
@@ -177,27 +180,18 @@ export default function Dashboard() {
             });
     }, []);
 
-    // Quand on change de métrique :
-    // - si on quitte "etudiant par jour" et que le graphique actuel est "line", revenir à "bar"
-    // - si on arrive sur "etudiant par jour" et que le graphique est "pie"/"doughnut", revenir à "bar"
     const handleMetricChange = (newMetric: MetricId) => {
         setMetric(newMetric);
-        if (newMetric !== LINE_ONLY_METRIC && chartType === "line") {
-            setChartType("bar");
-        }
-        if (newMetric === LINE_ONLY_METRIC && (chartType === "pie" || chartType === "doughnut")) {
-            setChartType("bar");
-        }
     };
 
-    // Quand on choisit un type de graphique, bloquer "line" si la métrique ne le permet pas
     const handleChartTypeChange = (newType: ChartTypeId) => {
-        if (newType === "line" && metric !== LINE_ONLY_METRIC) return;
         setChartType(newType);
     };
 
     // Derive unique filter options from data
-    const evenements = [...new Set(visiteurs.map((v) => v.evenement?.type).filter(Boolean))] as string[];
+    const formationsDisponibles = [...new Set(visiteurs.map((v) => v.formation_interessee).filter(Boolean))].sort() as string[];
+    const originesDisponibles   = [...new Set(visiteurs.map((v) => v.formation_origine?.type).filter(Boolean))].sort() as string[];
+    const evenements            = [...new Set(visiteurs.map((v) => v.evenement?.type).filter(Boolean))].sort() as string[];
 
     const filtered = visiteurs.filter((v) => {
         if (filterFormation && v.formation_interessee !== filterFormation) return false;
@@ -233,7 +227,6 @@ export default function Dashboard() {
             const Comp = chartType === "pie" ? Pie : Doughnut;
             return <Comp data={chartData} options={radialOptions} />;
         }
-        if (chartType === "line") return <Line data={chartData} options={axisOptions} />;
         return <Bar data={chartData} options={axisOptions} />;
     };
 
@@ -252,21 +245,16 @@ export default function Dashboard() {
                 <div className="panel">
                     <div className="panel-label">Type de graphique</div>
                     <div className="ct-grid">
-                        {CHART_TYPES.map((ct) => {
-                            const isDisabled = ct.id === "line" && metric !== LINE_ONLY_METRIC;
-                            return (
-                                <button
-                                    key={ct.id}
-                                    className={`ct-btn ${chartType === ct.id ? "active" : ""} ${isDisabled ? "disabled" : ""}`}
-                                    onClick={() => handleChartTypeChange(ct.id)}
-                                    disabled={isDisabled}
-                                    title={isDisabled ? "Disponible uniquement pour « Etudiant par jour »" : undefined}
-                                >
-                                    <span className="ic">{ct.icon}</span>
-                                    {ct.label}
-                                </button>
-                            );
-                        })}
+                        {CHART_TYPES.map((ct) => (
+                            <button
+                                key={ct.id}
+                                className={`ct-btn ${chartType === ct.id ? "active" : ""}`}
+                                onClick={() => handleChartTypeChange(ct.id)}
+                            >
+                                <span className="ic">{ct.icon}</span>
+                                {ct.label}
+                            </button>
+                        ))}
                     </div>
                 </div>
 
@@ -300,25 +288,22 @@ export default function Dashboard() {
                         <label>Formation intéressée</label>
                         <select value={filterFormation} onChange={(e) => setFilterFormation(e.target.value)}>
                             <option value="">Toutes</option>
-                            {formations.map((f) => <option key={f} value={f}>{f}</option>)}
+                            {formationsDisponibles.map((f) => <option key={f} value={f}>{f}</option>)}
                         </select>
                     </div>
                     <div className="fg">
                         <label>Formation d'origine</label>
                         <select value={filterOrigine} onChange={(e) => setFilterOrigine(e.target.value)}>
                             <option value="">Toutes</option>
-                            {typesFormationOrigine.map((f) => <option key={f} value={f}>{f}</option>)}
+                            {originesDisponibles.map((f) => <option key={f} value={f}>{f}</option>)}
                         </select>
                     </div>
                     <div className="fg">
                         <label>Type d'événement</label>
                         <select value={filterEvenement} onChange={(e) => setFilterEvenement(e.target.value)}>
                             <option value="">Tous</option>
-                            <option value="jpo">JPO</option>
-                            <option value="forum">Forum</option>
-                            <option value="autre">Autre</option>
-                            {evenements.filter(e => !["jpo","forum","autre"].includes(e)).map((e) => (
-                                <option key={e} value={e}>{e}</option>
+                            {evenements.map((e) => (
+                                <option key={e} value={e}>{EVENEMENT_LABELS[e] ?? e}</option>
                             ))}
                         </select>
                     </div>
