@@ -10,13 +10,26 @@ export default function ExportButtons({filtres}: ExportButtonsProps) {
         ServiceExport.exporterCSV(filtres);
     }
 
+    function handleExportEmails() {
+        ServiceExport.exporterEmailsCSV(filtres);
+    }
+
     return (
-        <button
-            onClick={handleExport}
-            className="btn btn-success d-flex align-items-center gap-2"
-        >
-            <i className="bi bi-download"></i>
-            Exporter les données (CSV)
-        </button>
+        <div className="d-flex gap-2">
+            <button
+                onClick={handleExport}
+                className="btn btn-success d-flex align-items-center gap-2"
+            >
+                <i className="bi bi-download"></i>
+                Exporter les données (CSV)
+            </button>
+            <button
+                onClick={handleExportEmails}
+                className="btn btn-outline-success d-flex align-items-center gap-2"
+            >
+                <i className="bi bi-envelope"></i>
+                Exporter les emails (CSV)
+            </button>
+        </div>
     );
 }
