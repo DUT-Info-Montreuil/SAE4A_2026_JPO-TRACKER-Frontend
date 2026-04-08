@@ -1,5 +1,7 @@
 import type {ReactNode} from "react";
-import Connexion from "./Connexion.tsx";
+import Connexion from "./Connexion.tsx";import {Link} from "react-router-dom";
+
+
 
 interface RouteAdminProps {
     token: string | null;
@@ -16,6 +18,7 @@ export default function RouteAdmin({token, erreur, onLogin, onLogout, children}:
     return (
         <>
             <div className="d-flex justify-content-end p-2">
+                <Link to="/admin/mot-de-passe" className="btn btn-outline-secondary btn-sm">Changer le mot de passe</Link>
                 <button className="btn btn-outline-secondary btn-sm" onClick={onLogout}>Se déconnecter</button>
             </div>
             {children}
