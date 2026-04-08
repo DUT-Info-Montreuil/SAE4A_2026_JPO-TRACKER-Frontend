@@ -3,6 +3,7 @@ import VisiteurCard from "./VisiteurCard.tsx";
 import {useVisiteurs} from "../hook/UseVisiteurs.tsx";
 import FiltresVisiteurs from "./FiltresVisiteurs.tsx";
 import Pagination from "./Pagination.tsx";
+import ExportButtons from "./ExportButtons.tsx";
 
 export default function ListerVisiteurs (){
     const {visiteurs, filtres, appliquerFiltres, reinitialiser, totalPages, changerPage} = useVisiteurs();
@@ -17,7 +18,10 @@ export default function ListerVisiteurs (){
                 onReinit={reinitialiser}
             />
 
-            <p className="text-muted small mb-2">résultats : {visiteurs.length}</p>
+            <div className="d-flex justify-content-between align-items-center mb-2">
+                <p className="text-muted small mb-0">résultats : {visiteurs.length}</p>
+                <ExportButtons filtres={filtres}/>
+            </div>
 
             <table className="table table-striped table-hover align-middle">
                 <thead>
