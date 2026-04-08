@@ -65,7 +65,7 @@ export default class ServiceVisiteur {
 
         const query = f.toString() ? `?${f.toString()}`: "";
 
-        return fetch(`${URL}/visiteurs/filtrer${query}`)
+        return fetch(`${URL}/visiteurs/filtered${query}`)
             .then(res => res.json())
             .catch(error => {
                 console.error(error)
