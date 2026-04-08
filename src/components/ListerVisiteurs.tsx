@@ -5,6 +5,11 @@ import FiltresVisiteurs from "./FiltresVisiteurs.tsx";
 import Pagination from "./Pagination.tsx";
 
 export default function ListerVisiteurs (){
+    const [visiteurs, setVisiteurs] = useState<TypeVisiteur[]>([]);
+
+    useEffect(() => {
+        ServiceVisiteur.recupVisiteursFull().then(data => setVisiteurs(data))
+    })
     const {visiteurs, filtres, appliquerFiltres, reinitialiser, totalPages, changerPage} = useVisiteurs();
 
     return (
