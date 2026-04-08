@@ -1,0 +1,190 @@
+import {useState, type ChangeEvent} from "react";
+import {initialValues, formations, type FormValues, typesFormationOrigine} from "../type/TypeForm.tsx";
+import ServiceVisiteur from "../services/ServiceVisiteur.tsx";
+
+export default function FormulaireVisiteur() {
+    const [form, setForm] = useState<FormValues>(initialValues);
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target;
+        const val = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
+        setForm({ ...form, [name]: val });
+    };
+
+    const handleSubmit = (e: React.BaseSyntheticEvent) => {
+        e.preventDefault();
+        ServiceVisiteur.ajouterVisiteur(form).then(() => {
+            setForm(initialValues);
+        })
+    };
+
+    return (
+        <div className="container py-4">
+            <div className="row justify-content-center">
+                <h2 className="text-center mb-3">Formulaire d'inscription</h2>
+                <div className="col-12 col-md-10 col-lg-8">
+
+                    <form onSubmit={handleSubmit}>
+                        <div className="card mb-3">
+                            <div className="card-body">
+                                <div className="row g-3">
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+                                            <input name="nom" className="form-control" placeholder="Nom"
+                                                   value={form.nom} onChange={handleChange} required />
+                                            <label>Nom*</label>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+                                            <input name="prenom" className="form-control" placeholder="Prénom"
+                                                   value={form.prenom} onChange={handleChange} required />
+                                            <label>Prénom*</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row g-3 mt-1">
+                                    <div className="col-sm-4">
+                                        <div className="form-floating">
+                                            <input name="dateDeNaissance" type="date" className="form-control"
+                                                   placeholder="Date de naissance"
+                                                   value={form.dateDeNaissance} onChange={handleChange} required/>
+                                            <label>Date de naissance*</label>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <div className="form-floating">
+                                            <input name="email" type="email" className="form-control"
+                                                   placeholder="Email"
+                                                   value={form.email} onChange={handleChange}/>
+                                            <label>Email</label>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <div className="form-floating">
+                                            <input name="telephone" type="tel" className="form-control"
+                                                   placeholder="Téléphone"
+                                                   value={form.telephone} onChange={handleChange}/>
+                                            <label>Téléphone (facultatif)</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row g-3 mt-1">
+                                    <div className="col-sm-8">
+                                        <div className="form-floating">
+                                            <input name="ville" className="form-control" placeholder="Ville" type="text"
+                                                   value={form.ville} onChange={handleChange} required/>
+                                            <label>Ville*</label>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <div className="form-floating">
+                                            <input name="codePostal" className="form-control" placeholder="Code postal"
+                                                   type="number"
+                                                   maxLength={5} value={form.codePostal} onChange={handleChange}
+                                                   required/>
+                                            <label>Code postal*</label>
+                                        </div>
+                                    </div>
+                                    <div className="form-check mt-3">
+                                        <input className="form-check-input" type="checkbox" id="situationParticuliere"
+                                               name="situationParticuliere" checked={form.situationParticuliere}
+                                               onChange={handleChange}/>
+                                        <label className="form-check-label" htmlFor="situationParticuliere">Est ce que j'ai une situation particulière ?</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div className="card shadow-sm mb-3">
+                            <div className="card-body">
+                                <div className="row g-3">
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+                                            <select name="formationOrigine" className="form-select"
+                                                    value={form.formationOrigine} onChange={handleChange} required>
+                                                <option value=""></option>
+                                                {typesFormationOrigine.map((t) => <option key={t}>{t}</option>)}
+                                            </select>
+                                            <label>Formation actuelle*</label>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+                                            <input name="formationOrigineDetail" className="form-control"
+                                                   placeholder="Précisez votre formation"
+                                                   value={form.formationOrigineDetail} onChange={handleChange}/>
+                                            <label>ex: Lience informatique</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="form-floating mt-3 mb-3">
+                                    <input name="lycee" className="form-control" placeholder="Lycée"
+                                           value={form.lycee} onChange={handleChange} required/>
+                                    <label>Lycée / Établissement de provenance</label>
+                                </div>
+
+
+                                <div className="form-floating">
+                                    <select name="formationInteressee" className="form-select"
+                                            value={form.formationInteressee} onChange={handleChange} required>
+                                        <option value=""></option>
+                                        {formations.map((f) => <option key={f}>{f}</option>)}
+                                    </select>
+                                    <label>Formation qui vous intéresse</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="card shadow-sm mb-3">
+                            <div className="card-body">
+
+                                <label className="form-label fw-medium">Souhaitez-vous participer à une journée d'immersion ?</label>
+                                <div className="d-flex gap-4 mb-3">
+                                    <div className="form-check mb-3">
+                                        <input className="form-check-input" type="checkbox" id="immersion"
+                                               name="immersion" checked={form.immersion}
+                                               onChange={handleChange}/>
+                                        <label className="form-check-label" htmlFor="immersion">
+                                            Je souhaite participer à une journée d'immersion
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {form.immersion && (
+                                    <div className="form-floating">
+                                        <select name="typeEvenement" className="form-select"
+                                                value={form.typeEvenement} onChange={handleChange} required>
+                                            <option value=""></option>
+                                            <option value="jpo">Journée Porte Ouverte</option>
+                                            <option value="forum">Forum des formations</option>
+                                            <option value="autre">Autre</option>
+                                        </select>
+                                        <label>Type d'événement</label>
+                                    </div>
+                                )}
+
+                            </div>
+                        </div>
+
+                        <div className="card shadow-sm mb-4">
+                            <div className="card-body">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" id="rgpd" name="rgpd"
+                                           checked={form.rgpd} onChange={handleChange} required />
+                                    <p>RGPD</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" className="btn btn-primary btn-lg" disabled={!form.rgpd}>Valider</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+}
