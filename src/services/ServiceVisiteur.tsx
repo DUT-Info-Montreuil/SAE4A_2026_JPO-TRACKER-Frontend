@@ -87,4 +87,11 @@ export default class ServiceVisiteur {
             });
     }
 
+    static deleteTout(): Promise<any> {
+        return fetch(`${URL}/visiteurs/`, {
+            method: "DELETE",
+        }).then(res => res.json())
+            .catch(error => console.error(error));
+    }
+
 }
