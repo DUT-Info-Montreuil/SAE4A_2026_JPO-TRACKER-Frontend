@@ -9,10 +9,7 @@ export default function VisiteurCard ({visiteur}: VisiteurCardProps){
     const navigate = useNavigate();
 
     return (
-        <tr
-            style={{cursor: "pointer"}}
-            onClick={() => navigate(`/visiteurs/${visiteur.id}`)}
-        >
+        <tr onClick={() => navigate(`/visiteurs/${visiteur.id}`)}>
             <td>{visiteur.nom}</td>
             <td>{visiteur.prenom}</td>
             <td>{visiteur.email}</td>

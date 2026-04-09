@@ -22,13 +22,15 @@ export default function ListerVisiteurs (){
                 onReinit={reinitialiser}
             />
 
-            <div className="d-flex justify-content-between align-items-center mb-2">
-                <p className="text-muted small mb-0">résultats : {visiteurs.length}</p>
-                <ExportButtons filtres={filtres}/>
-                <BoutonSupprimerVisiteurs onDeleted={reinitialiser}/>
+            <div className="actions-bar">
+                <p className="results-count">résultats : {visiteurs.length}</p>
+                <div className="actions-right">
+                    <ExportButtons filtres={filtres}/>
+                    <BoutonSupprimerVisiteurs onDeleted={reinitialiser}/>
+                </div>
             </div>
 
-            <table className="table table-striped table-hover align-middle">
+            <table className="visiteurs-table mb-3">
                 <thead>
                 <tr>
                     <td>Nom</td>

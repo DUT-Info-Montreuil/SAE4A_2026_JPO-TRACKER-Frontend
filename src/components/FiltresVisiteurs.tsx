@@ -12,68 +12,70 @@ export default function FiltresVisiteurs({filtres, onFiltres, onReinit}: Filtres
     const [saisie, setSaisie] = useState(filtres.recherche);
 
     function handleOk() {
-        onFiltres({recherche: saisie})
+        onFiltres({recherche: saisie});
     }
 
     function handleCheck(e: ChangeEvent<HTMLInputElement>) {
         onFiltres({[e.target.name]: e.target.checked});
     }
-    
+
     function handleSelect(e: ChangeEvent<HTMLSelectElement>) {
         onFiltres({[e.target.name]: e.target.value});
     }
 
     return (
-        <div>
-            <div className="input-group">
+        <div className="filtres-panel">
+            <div className="filtres-search">
                 <input className="form-control"
                        type="text"
-                       placeholder="Recherche..."
+                       placeholder="Recherche par nom, prénom, email…"
                        value={saisie}
                        onChange={e => setSaisie(e.target.value)}
                 />
                 <button className="btn btn-dark" onClick={handleOk}>OK</button>
             </div>
 
-            <div>
-                <label>Département</label>
-                <select name="departement" value={filtres.departement} onChange={handleSelect}>
-                    <option value=""></option>
-                    {formations.map(f => <option key={f} value={f}>{f}</option>)}
-                </select>
+            <div className="filtres-selects">
+                <div className="filtres-field">
+                    <label>Département</label>
+                    <select name="departement" value={filtres.departement} onChange={handleSelect}>
+                        <option value="">Tous</option>
+                        {formations.map(f => <option key={f} value={f}>{f}</option>)}
+                    </select>
+                </div>
+                <div className="filtres-field">
+                    <label>Formation d'origine</label>
+                    <select name="formationOrigine" value={filtres.formationOrigine} onChange={handleSelect}>
+                        <option value="">Toutes</option>
+                        {typesFormationOrigine.map(t => <option key={t} value={t}>{t}</option>)}
+                    </select>
+                </div>
             </div>
 
-            <div>
-                <label>Type de formation d'origine</label>
-                <select name="formationOrigine" value={filtres.formationOrigine} onChange={handleSelect}>
-                    <option value=""></option>
-                    {typesFormationOrigine.map(t => <option key={t} value={t}>{t}</option>)}
-                </select>
-            </div>
-
-            <div>
-                <div>
+            <div className="filtres-checks">
+                <label className="check-pill">
                     <input type="checkbox"
                            name="reorientation"
+                           id="reorientation"
                            checked={filtres.reorientation}
                            onChange={handleCheck}
-                           id="reorientation"
                     />
-                    <label htmlFor="reorientation">Réorientation uniquement</label>
-                </div>
-                <div>
+                    Réorientation uniquement
+                </label>
+                <label className="check-pill">
                     <input type="checkbox"
                            name="situationParticuliere"
+                           id="situationParticuliere"
                            checked={filtres.situationParticuliere}
                            onChange={handleCheck}
-                           id="situationParticuliere"
                     />
-                    <label htmlFor="situationParticuliere">Dossier particulier uniquement</label>
-                </div>
-                <button onClick={onReinit}>Reset</button>
+                    Dossier particulier uniquement
+                </label>
+            </div>
+
+            <div className="filtres-actions">
+                <button className="btn-reset" onClick={onReinit}>Reset</button>
             </div>
         </div>
-
-
     );
 }

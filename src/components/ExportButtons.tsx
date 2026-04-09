@@ -16,17 +16,11 @@ export default function ExportButtons({filtres}: ExportButtonsProps) {
 
     return (
         <div className="d-flex gap-2">
-            <button
-                onClick={handleExport}
-                className="btn btn-success d-flex align-items-center gap-2"
-            >
+            <button onClick={handleExport} className="btn-export btn-export-primary">
                 <i className="bi bi-download"></i>
                 Exporter les données (CSV)
             </button>
-            <button
-                onClick={handleExportEmails}
-                className="btn btn-outline-success d-flex align-items-center gap-2"
-            >
+            <button onClick={handleExportEmails} className="btn-export btn-export-outline">
                 <i className="bi bi-envelope"></i>
                 Exporter les emails (CSV)
             </button>

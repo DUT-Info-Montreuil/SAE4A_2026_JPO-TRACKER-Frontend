@@ -22,7 +22,7 @@ export default function BoutonSupprimerVisiteurs({ onDeleted }: ButtonSuppProps)
 
     return (
         <>
-            <button className="btn btn-danger" onClick={() => setOpen(true)}>
+            <button className="btn-delete" onClick={() => setOpen(true)}>
                 Supprimer tous les visiteurs
             </button>
 
@@ -30,14 +30,12 @@ export default function BoutonSupprimerVisiteurs({ onDeleted }: ButtonSuppProps)
                 <div className="modal-overlay">
                     <div className="modal-box">
                         <h3>Confirmation</h3>
-                        <p> Supprimer TOUS les visiteurs ? Cette action est irréversible.</p>
-
+                        <p>Supprimer TOUS les visiteurs ? Cette action est irréversible.</p>
                         <div className="modal-actions">
-                            <button className="btn btn-secondary" onClick={() => setOpen(false)}>
+                            <button className="btn-cancel" onClick={() => setOpen(false)}>
                                 Annuler
                             </button>
-
-                            <button className="btn btn-danger" onClick={handleDelete}>
+                            <button className="btn-confirm" onClick={handleDelete}>
                                 Confirmer
                             </button>
                         </div>

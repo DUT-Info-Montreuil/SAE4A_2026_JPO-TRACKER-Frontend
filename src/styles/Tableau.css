@@ -1,0 +1,43 @@
+.visiteurs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.visiteurs-table thead tr {
+    border-bottom: 0.5px solid #334155;
+}
+
+.visiteurs-table thead td {
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #1e293b;
+}
+
+.visiteurs-table tbody tr {
+    border-bottom: 0.5px solid #1e293b;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+.visiteurs-table tbody tr:hover {
+    background: #1e293b;
+}
+
+.visiteurs-table tbody td {
+    padding: 11px 14px;
+    color: #e2e8f0;
+}
+
+.visiteurs-table tbody td:first-child {
+    font-weight: 500;
+}
+
+.visiteurs-table tbody td:nth-child(3) {
+    color: #94a3b8;
+    font-size: 13px;
+}
