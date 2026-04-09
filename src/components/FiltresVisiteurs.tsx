@@ -39,15 +39,15 @@ export default function FiltresVisiteurs({filtres, onFiltres, onReinit}: Filtres
                 <label>Département</label>
                 <select name="departement" value={filtres.departement} onChange={handleSelect}>
                     <option value=""></option>
-                    {formations.map(f => <option key={f}>{f}</option>)}
+                    {formations.map(f => <option key={f} value={f}>{f}</option>)}
                 </select>
             </div>
 
             <div>
                 <label>Type de formation d'origine</label>
-                <select name="bac">
+                <select name="formationOrigine" value={filtres.formationOrigine} onChange={handleSelect}>
                     <option value=""></option>
-                    {typesFormationOrigine.map(t => <option key={t}>{t}</option>)}
+                    {typesFormationOrigine.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
             </div>
 
@@ -57,6 +57,7 @@ export default function FiltresVisiteurs({filtres, onFiltres, onReinit}: Filtres
                            name="reorientation"
                            checked={filtres.reorientation}
                            onChange={handleCheck}
+                           id="reorientation"
                     />
                     <label htmlFor="reorientation">Réorientation uniquement</label>
                 </div>
@@ -65,6 +66,7 @@ export default function FiltresVisiteurs({filtres, onFiltres, onReinit}: Filtres
                            name="situationParticuliere"
                            checked={filtres.situationParticuliere}
                            onChange={handleCheck}
+                           id="situationParticuliere"
                     />
                     <label htmlFor="situationParticuliere">Dossier particulier uniquement</label>
                 </div>

@@ -34,7 +34,8 @@ export default function ListerVisiteurs (){
                     <td>Nom</td>
                     <td>Prénom</td>
                     <td>Email</td>
-                    <td>Téléphone</td>
+                    <td>Code postal</td>
+                    <td>Formation d'origine</td>
                 </tr>
                 </thead>
                 <tbody>

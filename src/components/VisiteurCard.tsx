@@ -16,7 +16,8 @@ export default function VisiteurCard ({visiteur}: VisiteurCardProps){
             <td>{visiteur.nom}</td>
             <td>{visiteur.prenom}</td>
             <td>{visiteur.email}</td>
-            <td>{visiteur.telephone ? visiteur.telephone : "pas de num !"}</td>
+            <td>{visiteur.adresse?.code_postal}</td>
+            <td>{visiteur.formation_origine?.type}</td>
         </tr>
     );
 }
