@@ -10,10 +10,6 @@ export function useVisiteurs (){
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        charger(filtresInitiaux)
-    }, []);
-
     function charger(f:Filtres) {
         ServiceVisiteur.getVisiteurs(f, LIMIT)
             .then(data => {
@@ -22,6 +18,10 @@ export function useVisiteurs (){
             })
             .finally(() => setLoading(false))
     }
+
+    useEffect(() => {
+        charger(filtresInitiaux)
+    }, []);
 
     function appliquerFiltres(f: Partial<Filtres>) {
         const nouveauxFiltres = {...filtres, ...f, page: 1}

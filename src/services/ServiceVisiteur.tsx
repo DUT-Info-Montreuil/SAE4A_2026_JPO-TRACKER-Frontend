@@ -90,11 +90,27 @@ export default class ServiceVisiteur {
             });
     }
 
-    static deleteTout(): Promise<void> {
+    static deleteTout(): Promise<{ message: string; deleted_count: number }> {
+        const token = localStorage.getItem("token");
+
         return fetch(`${URL}/visiteurs/`, {
             method: "DELETE",
-        }).then(res => res.json())
-            .catch(error => console.error(error));
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        })
+            .then(async res => {
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || "Erreur lors de la suppression");
+                }
+                return data;
+            })
+            .catch(error => {
+                console.error(error);
+                throw error;
+            });
     }
 
 }

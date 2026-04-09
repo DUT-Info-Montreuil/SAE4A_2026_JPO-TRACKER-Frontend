@@ -5,6 +5,7 @@ import FiltresVisiteurs from "./FiltresVisiteurs.tsx";
 import Pagination from "./Pagination.tsx";
 import ExportButtons from "./ExportButtons.tsx";
 import NavAdmin from "./NavAdmin.tsx";
+import BoutonSupprimerVisiteurs from "./BoutonSupprimerVisiteurs.tsx";
 
 export default function ListerVisiteurs (){
 
@@ -24,6 +25,7 @@ export default function ListerVisiteurs (){
             <div className="d-flex justify-content-between align-items-center mb-2">
                 <p className="text-muted small mb-0">résultats : {visiteurs.length}</p>
                 <ExportButtons filtres={filtres}/>
+                <BoutonSupprimerVisiteurs onDeleted={reinitialiser}/>
             </div>
 
             <table className="table table-striped table-hover align-middle">
