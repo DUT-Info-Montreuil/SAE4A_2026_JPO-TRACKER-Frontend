@@ -12,7 +12,6 @@ function App() {
               <Route path="/" element={<FormulaireVisiteur />} />
               <Route path="/visiteurs" element={<ListerVisiteurs />} />
               <Route path="/statistiques" element={<Statistiques />}/>
-              <Route path="/visiteurs/filtrer/" element={<ListerVisiteurs />} />
               <Route path="/visiteurs/:id" element={<VisiteurDetail />} />
           </Routes>
       </BrowserRouter>
