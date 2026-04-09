@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import NavAdmin from "./NavAdmin.tsx";
+
 import {
     Chart,
     CategoryScale,
@@ -232,6 +234,7 @@ export default function Dashboard() {
 
     return (
         <div className="db">
+            <NavAdmin />
             <div className="db-header">
                 <h1 className="db-title">JPO <span>Tracker</span> — Tableau de bord</h1>
                 <div className="db-badge">

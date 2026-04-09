@@ -1,0 +1,136 @@
+.filtres-panel {
+    background: #1e293b;
+    border: 0.5px solid #334155;
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.filtres-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.filtres-search {
+    display: flex;
+    gap: 8px;
+}
+
+.filtres-search input {
+    flex: 1;
+}
+
+.filtres-selects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.filtres-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filtres-field label {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.filtres-field input,
+.filtres-field select,
+.filtres-search input {
+    background: #0f172a;
+    border: 0.5px solid #334155;
+    border-radius: 8px;
+    color: #e2e8f0;
+    padding: 7px 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.filtres-field input:focus,
+.filtres-field select:focus,
+.filtres-search input:focus {
+    border-color: #64748b;
+}
+
+.filtres-field select option {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+.filtres-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.check-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 0.5px solid #334155;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #e2e8f0;
+    background: #0f172a;
+    transition: background 0.15s;
+}
+
+.check-pill:hover {
+    background: #1e293b;
+}
+
+.check-pill input[type="checkbox"] {
+    accent-color: #e2e8f0;
+    width: 14px;
+    height: 14px;
+}
+
+.filtres-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-reset {
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: #94a3b8;
+    background: none;
+    border: 0.5px solid #334155;
+    border-radius: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-reset:hover {
+    background: #1e293b;
+}
+
+.btn.btn-dark {
+    background: #e2e8f0;
+    color: #0f172a;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn.btn-dark:hover {
+    background: #cbd5e1;
+}
