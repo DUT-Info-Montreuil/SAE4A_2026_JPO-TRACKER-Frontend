@@ -64,13 +64,16 @@ export default class ServiceVisiteur {
         f.append("limit", String(limit));
 
         const query = f.toString() ? `?${f.toString()}`: "";
-
-        return fetch(`${URL}/visiteurs/filtered${query}`)
+        const token = localStorage.getItem("token");
+        
+        return fetch(`${URL}/visiteurs/filtrer${query}`, {
+            headers: {"Authorization": `Bearer ${token}`},
+        })
             .then(res => res.json())
             .catch(error => {
-                console.error(error)
-                return {visiteurs: [], total: 0}
-            })
+                console.error(error);
+                return {visiteurs: [], total: 0};
+            });
     }
     static recupVisiteursFull (): Promise<TypeVisiteur[]>{
         return fetch(`${URL}/visiteurs/full`)
