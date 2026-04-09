@@ -1,6 +1,8 @@
 import {useState, type ChangeEvent} from "react";
 import {initialValues, formations, type FormValues, typesFormationOrigine} from "../type/TypeForm.tsx";
 import ServiceVisiteur from "../services/ServiceVisiteur.tsx";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function FormulaireVisiteur() {
     const [form, setForm] = useState<FormValues>(initialValues);
@@ -14,11 +16,15 @@ export default function FormulaireVisiteur() {
         e.preventDefault();
         ServiceVisiteur.putVisiteur(form).then(() => {
             setForm(initialValues);
-        })
+            toast.success("Formulaire envoyé avec succès !");
+        }).catch(() => {
+            toast.error("Erreur lors de l'envoi du formulaire");
+        });
     };
 
     return (
         <div className="container py-4">
+            <ToastContainer position="top-right" autoClose={3000} />
             <div className="row justify-content-center">
                 <h2 className="text-center mb-3">Formulaire d'inscription</h2>
                 <div className="col-12 col-md-10 col-lg-8">
