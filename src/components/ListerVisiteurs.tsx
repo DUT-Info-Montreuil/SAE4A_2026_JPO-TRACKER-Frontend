@@ -4,6 +4,7 @@ import {useVisiteurs} from "../hook/UseVisiteurs.tsx";
 import FiltresVisiteurs from "./FiltresVisiteurs.tsx";
 import Pagination from "./Pagination.tsx";
 import ExportButtons from "./ExportButtons.tsx";
+import NavAdmin from "./NavAdmin.tsx";
 
 export default function ListerVisiteurs (){
 
@@ -11,6 +12,7 @@ export default function ListerVisiteurs (){
 
     return (
         <div className="table-responsive container">
+            <NavAdmin />
             <h2>Liste des visiteurs</h2>
 
             <FiltresVisiteurs
