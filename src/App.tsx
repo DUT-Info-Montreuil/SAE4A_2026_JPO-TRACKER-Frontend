@@ -12,6 +12,19 @@ function App() {
 
     return (
         <BrowserRouter>
+                <img
+                    src="/images/LOGO_IUT_Montreuil_Baseline_Couleur_INFO.png"
+                    alt="IUT de Montreuil"
+                    style={{ 
+                        position: "fixed",
+                        top: "10px",
+                        left: "12px",
+                        height: "44px",
+                        width: "auto",
+                        zIndex: 1000
+                    }}
+                />
+
             <Routes>
                 <Route path="/" element={<FormulaireVisiteur />} />
 

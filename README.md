@@ -1,73 +1,155 @@
-# React + TypeScript + Vite
+# Frontend – Gestion des Visiteurs JPO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface React (Vite + TypeScript) pour la gestion des visiteurs des Journées Portes Ouvertes de l'IUT de Montreuil.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Prérequis
 
-## React Compiler
+- Node.js 18+
+- Le backend Flask doit tourner sur `http://localhost:5000`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Cloner le projet
+git clone <url-du-repo>
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Installer les dépendances
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Lancer en développement
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+L'application démarre sur `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Logo
+
+Placer le logo dans le dossier `public` :
+
 ```
+public/
+└── images/
+    └── LOGO_IUT_Montreuil_Baseline_Couleur_INFO.png
+```
+
+---
+
+## Structure du projet
+
+```
+frontend/
+├── public/
+│   └── images/
+│       └── LOGO_IUT_Montreuil_Baseline_Couleur_INFO.png
+├── src/
+│   ├── components/
+│   │   ├── BoutonSupprimerVisiteurs.tsx  # Bouton suppression + modale de confirmation
+│   │   ├── ChangerMotDePasse.tsx         # Formulaire changement de mot de passe
+│   │   ├── Connexion.tsx                 # Page de connexion admin
+│   │   ├── ExportButtons.tsx             # Boutons export CSV
+│   │   ├── FiltresVisiteurs.tsx          # Panneau de filtres
+│   │   ├── Formulaire.tsx                # Formulaire d'inscription visiteur (public)
+│   │   ├── ListerVisiteurs.tsx           # Liste paginée des visiteurs
+│   │   ├── NavAdmin.tsx                  # Barre de navigation admin
+│   │   ├── Pagination.tsx                # Composant pagination
+│   │   ├── RouteAdmin.tsx                # Guard de route (JWT)
+│   │   ├── Statistique.tsx               # Dashboard avec graphiques
+│   │   ├── VisiteurCard.tsx              # Ligne de tableau visiteur
+│   │   └── VisiteurDetail.tsx            # Fiche détaillée d'un visiteur
+│   ├── hook/
+│   │   ├── UseAuth.tsx                   # Hook gestion authentification
+│   │   └── UseVisiteurs.tsx              # Hook chargement et filtrage visiteurs
+│   ├── services/
+│   │   ├── ServiceAuth.tsx               # Appels API auth
+│   │   ├── ServiceExport.tsx             # Appels API export CSV
+│   │   └── ServiceVisiteur.tsx           # Appels API visiteurs
+│   ├── styles/
+│   │   ├── ActionsBar.css
+│   │   ├── dashboard.css
+│   │   ├── FiltresVisiteurs.css
+│   │   ├── modal.css
+│   │   └── Tableau.css
+│   ├── type/
+│   │   ├── TypeAuth.tsx                  # Interface AuthForm
+│   │   ├── Typefiltres.tsx               # Interface Filtres + valeurs initiales
+│   │   ├── TypeForm.tsx                  # Interface FormValues + listes de formations
+│   │   └── TypeVisiteur.tsx              # Interface TypeVisiteur
+│   ├── App.tsx                           # Routeur principal
+│   └── main.tsx                          # Point d'entrée React
+├── index.html
+└── package.json
+```
+
+---
+
+## Pages et routes
+
+| Route | Accès | Description |
+|-------|-------|-------------|
+| `/` | Public | Formulaire d'inscription visiteur |
+| `/visiteurs` | Admin | Liste filtrée et paginée des visiteurs |
+| `/visiteurs/:id` | Admin | Fiche détaillée d'un visiteur |
+| `/statistiques` | Admin | Dashboard avec graphiques Chart.js |
+| `/mot-de-passe` | Admin | Changement de mot de passe |
+
+Les routes admin affichent la page de connexion si aucun token JWT n'est présent en `localStorage`.
+
+---
+
+## Authentification
+
+Le token JWT est stocké dans le `localStorage` sous la clé `token`. Il est envoyé automatiquement dans le header `Authorization: Bearer <token>` pour toutes les requêtes protégées.
+
+---
+
+## Fonctionnalités
+
+**Formulaire visiteur (public)**
+- Saisie complète : identité, formation, établissement, adresse, RGPD
+- Soumission vers `POST /visiteurs/`
+
+**Liste des visiteurs (admin)**
+- Recherche par nom, prénom, email
+- Filtres : département, formation d'origine, réorientation, situation particulière
+- Pagination (10 visiteurs par page)
+- Export CSV complet ou emails uniquement, avec les filtres actifs
+- Suppression de tous les visiteurs avec confirmation
+
+**Statistiques (admin)**
+- Graphiques barres, camembert, anneau via Chart.js
+- Métriques : formation intéressée, formation d'origine, type d'événement, situation particulière, immersion, étudiants par jour
+- Filtres combinables sur les graphiques
+
+**Mot de passe (admin)**
+- Validation : 8 caractères minimum, 1 majuscule, 1 chiffre, 1 caractère spécial
+
+---
+
+## Dépendances principales
+
+| Package | Version | Rôle |
+|---------|---------|------|
+| React | 19 | Framework UI |
+| React Router DOM | 7 | Routage SPA |
+| Chart.js + react-chartjs-2 | 4 / 5 | Graphiques statistiques |
+| Bootstrap | 5.3 (CDN) | Composants UI et grille |
+| Bootstrap Icons | 1.11 (CDN) | Icônes |
+| react-toastify | 11 | Notifications |
+| Vite | 8 | Bundler et serveur de développement |
+| TypeScript | 5 | Typage statique |
+
+---
+
+## Build de production
+
+```bash
+npm run build
+```
+
+Les fichiers sont générés dans le dossier `dist/`, à servir avec un serveur statique (Nginx, Apache, etc.).

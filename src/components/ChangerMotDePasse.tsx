@@ -8,6 +8,14 @@ export default function ChangerMotDePasse() {
     const [erreur, setErreur] = useState("");
     const [succes, setSucces] = useState("");
 
+    function validerMotDePasse(mdp: string): string {
+        if (mdp.length < 8) return "Le mot de passe doit contenir au moins 8 caractères.";
+        if (!/[A-Z]/.test(mdp)) return "Le mot de passe doit contenir au moins une majuscule.";
+        if (!/[0-9]/.test(mdp)) return "Le mot de passe doit contenir au moins un chiffre.";
+        if (!/[^A-Za-z0-9]/.test(mdp)) return "Le mot de passe doit contenir au moins un caractère spécial.";
+        return "";
+    }
+
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         setForm({...form, [e.target.name]: e.target.value});
     }
@@ -16,6 +24,13 @@ export default function ChangerMotDePasse() {
         e.preventDefault();
         setErreur("");
         setSucces("");
+
+        const erreurValidation = validerMotDePasse(form.nouveau_mot_de_passe);
+        if (erreurValidation) {
+            setErreur(erreurValidation);
+            return;
+        }
+
         ServiceAuth.changerMotDePasse(form.ancien_mot_de_passe, form.nouveau_mot_de_passe)
             .then(() => {
                 setSucces("Mot de passe mis à jour");
@@ -28,6 +43,9 @@ export default function ChangerMotDePasse() {
         <div className="container py-4">
             <div className="row justify-content-center">
                 <div className="col-12 col-md-6 col-lg-4">
+                    <a href="/visiteurs" className="d-inline-flex align-items-center gap-1 text-secondary mb-3">
+                        ← Retour
+                    </a>
                     <h2 className="text-center mb-3">Changer le mot de passe</h2>
                     <div className="card shadow-sm">
                         <div className="card-body">

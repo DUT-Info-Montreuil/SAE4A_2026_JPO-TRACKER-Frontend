@@ -11,7 +11,7 @@ export default function ListerVisiteurs() {
     const {visiteurs, filtres, appliquerFiltres, reinitialiser, totalPages, changerPage} = useVisiteurs();
 
     return (
-        <div className="table-responsive container">
+        <div className="table-responsive container" style={{ paddingTop: "70px" }}>
             <NavAdmin />
             <h2>Liste des visiteurs</h2>
 
