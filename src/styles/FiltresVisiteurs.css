@@ -1,6 +1,7 @@
+/* ===== FILTRES VISITEURS — Charte IUT Montreuil (thème clair) ===== */
 .filtres-panel {
-    background: #1e293b;
-    border: 0.5px solid #334155;
+    background: var(--bg-surface, #EDECEC);
+    border: 0.5px solid var(--border-subtle, #D6D5D5);
     border-radius: 12px;
     padding: 1.25rem;
     display: flex;
@@ -9,13 +10,15 @@
 }
 
 .filtres-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: #94a3b8;
+    font-family: var(--font-display, 'Bebas Neue', Arial, sans-serif);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--text-muted, #7A7A7A);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
+/* ===== BARRE DE RECHERCHE ===== */
 .filtres-search {
     display: flex;
     gap: 8px;
@@ -25,12 +28,14 @@
     flex: 1;
 }
 
+/* ===== GRILLE DE SÉLECTS ===== */
 .filtres-selects {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
 
+/* ===== CHAMPS ===== */
 .filtres-field {
     display: flex;
     flex-direction: column;
@@ -38,19 +43,22 @@
 }
 
 .filtres-field label {
-    font-size: 13px;
-    color: #94a3b8;
+    font-family: var(--font-body, Arial, sans-serif);
+    font-size: 12px;
+    color: var(--text-muted, #7A7A7A);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .filtres-field input,
 .filtres-field select,
 .filtres-search input {
-    background: #0f172a;
-    border: 0.5px solid #334155;
+    background: var(--bg-base, #FFFFFF);
+    border: 0.5px solid var(--border-default, #BFBEBE);
     border-radius: 8px;
-    color: #e2e8f0;
+    color: var(--text-primary, #1C1C1C);
     padding: 7px 10px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-body, Arial, sans-serif);
     font-size: 14px;
     outline: none;
     transition: border-color 0.15s;
@@ -59,14 +67,16 @@
 .filtres-field input:focus,
 .filtres-field select:focus,
 .filtres-search input:focus {
-    border-color: #64748b;
+    border-color: var(--color-teal, #6AA999);
+    box-shadow: 0 0 0 3px rgba(106, 169, 153, 0.15);
 }
 
 .filtres-field select option {
-    background: #1e293b;
-    color: #e2e8f0;
+    background: var(--bg-base, #FFFFFF);
+    color: var(--text-primary, #1C1C1C);
 }
 
+/* ===== PILLS DE FILTRES ===== */
 .filtres-checks {
     display: flex;
     flex-wrap: wrap;
@@ -78,59 +88,67 @@
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border: 0.5px solid #334155;
+    border: 0.5px solid var(--border-default, #BFBEBE);
     border-radius: 8px;
     cursor: pointer;
+    font-family: var(--font-body, Arial, sans-serif);
     font-size: 13px;
-    color: #e2e8f0;
-    background: #0f172a;
-    transition: background 0.15s;
+    color: var(--text-primary, #1C1C1C);
+    background: var(--bg-base, #FFFFFF);
+    transition: background 0.15s, border-color 0.15s;
 }
 
 .check-pill:hover {
-    background: #1e293b;
+    background: var(--bg-surface, #EDECEC);
+    border-color: var(--color-teal, #6AA999);
 }
 
 .check-pill input[type="checkbox"] {
-    accent-color: #e2e8f0;
+    accent-color: var(--color-teal, #6AA999);
     width: 14px;
     height: 14px;
 }
 
+/* ===== ACTIONS ===== */
 .filtres-actions {
     display: flex;
     justify-content: flex-end;
+    gap: 8px;
 }
 
 .btn-reset {
     font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    color: #94a3b8;
+    font-family: var(--font-body, Arial, sans-serif);
+    color: var(--text-muted, #7A7A7A);
     background: none;
-    border: 0.5px solid #334155;
+    border: 0.5px solid var(--border-subtle, #D6D5D5);
     border-radius: 8px;
     padding: 6px 14px;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: background 0.15s, color 0.15s;
 }
 
 .btn-reset:hover {
-    background: #1e293b;
+    background: var(--bg-surface, #EDECEC);
+    color: var(--text-secondary, #4A4A4A);
 }
 
+/* Bouton principal (appliquer) */
+.btn.btn-primary,
 .btn.btn-dark {
-    background: #e2e8f0;
-    color: #0f172a;
+    background: var(--color-teal, #6AA999);
+    color: #ffffff;
     border: none;
     border-radius: 8px;
     padding: 7px 16px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-body, Arial, sans-serif);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 700;
     cursor: pointer;
     transition: background 0.15s;
 }
 
+.btn.btn-primary:hover,
 .btn.btn-dark:hover {
-    background: #cbd5e1;
+    background: var(--color-teal-dark, #4A8878);
 }

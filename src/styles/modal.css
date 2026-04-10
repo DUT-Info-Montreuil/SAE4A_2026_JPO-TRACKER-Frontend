@@ -1,25 +1,94 @@
+/* ===== MODAL — Charte IUT Montreuil (thème clair) ===== */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.35);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 50;
 }
 
 .modal-box {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+    background: var(--bg-base, #FFFFFF);
+    border: 0.5px solid var(--border-subtle, #D6D5D5);
+    border-radius: 12px;
+    padding: 1.5rem;
     width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.modal-box h3 {
+    font-family: var(--font-display, 'Bebas Neue', Arial, sans-serif);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--text-primary, #1C1C1C);
+}
+
+.modal-box p {
+    font-family: var(--font-body, Arial, sans-serif);
+    font-size: 14px;
+    color: var(--text-secondary, #4A4A4A);
+    line-height: 1.6;
 }
 
 .modal-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* Bouton annuler */
+.btn-cancel {
+    padding: 7px 14px;
+    font-size: 13px;
+    font-family: var(--font-body, Arial, sans-serif);
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary, #4A4A4A);
+    border: 0.5px solid var(--border-subtle, #D6D5D5);
+    transition: background 0.15s;
+}
+
+.btn-cancel:hover {
+    background: var(--bg-surface, #EDECEC);
+}
+
+/* Bouton confirmer (action neutre) */
+.btn-confirm {
+    padding: 7px 14px;
+    font-size: 13px;
+    font-family: var(--font-body, Arial, sans-serif);
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--color-teal, #6AA999);
+    color: #ffffff;
+    border: none;
+    transition: background 0.15s;
+}
+
+.btn-confirm:hover {
+    background: var(--color-teal-dark, #4A8878);
+}
+
+/* Bouton confirmer (action destructrice) */
+.btn-confirm.danger {
+    background: var(--color-burgundy-bg, #FCEEF2);
+    color: var(--color-burgundy, #962546);
+    border: 0.5px solid var(--color-burgundy, #962546);
+}
+
+.btn-confirm.danger:hover {
+    background: var(--color-burgundy, #962546);
+    color: #ffffff;
 }
