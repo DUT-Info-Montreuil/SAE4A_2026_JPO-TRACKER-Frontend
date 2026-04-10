@@ -90,7 +90,10 @@ export default class ServiceVisiteur {
     }
 
     static getVisiteurById(id: string): Promise<TypeVisiteur> {
-        return fetch(`${URL}/visiteurs/${id}`)
+        const token = localStorage.getItem("token");
+        return fetch(`${URL}/visiteurs/${id}`, {
+            headers: {"Authorization": `Bearer ${token}`},
+        })
             .then(res => res.json())
             .catch(error => {
                 console.error(error);
