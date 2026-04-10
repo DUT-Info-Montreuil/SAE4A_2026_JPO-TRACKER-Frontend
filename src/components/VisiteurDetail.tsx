@@ -14,23 +14,24 @@ export default function VisiteurDetail() {
         }
     }, [id])
 
-    if (!visiteur) return "id false"
+    if (!visiteur) return <p>Visiteur introuvable</p>
 
     return (
         <div className="container">
             <h2>{visiteur.prenom} {visiteur.nom}</h2>
             <p>Email : {visiteur.email}</p>
-            <p>Téléphone : {visiteur.telephone || "pas de num"}</p>
-            <p>Situation particulière : {visiteur.situation_particulier ? "oui" : "non"}</p>
+            <p>Téléphone : {visiteur.telephone || "Non renseigné"}</p>
+            <p>Situation particulière : {visiteur.situation_particulier ? "Oui" : "Non"}</p>
 
             <h2>Formation</h2>
             <p>Intéressé par : {visiteur.formation_interessee || "—"}</p>
             <p>Formation actuelle : {visiteur.formation_origine?.type || "—"}</p>
-            <p>Détail : {visiteur.formation_origine?.detail || "—"}</p>
-            <p>Nom établissement : {visiteur.etablissement_origine?.nom || "—"}</p>
+            <p>Détail : {visiteur.formation_origine?.libelle || "—"}</p>
+            <p>Nom établissement : {visiteur["etablissement_origine"]?.nom || "—"}</p>
 
             <h2>Immersion</h2>
-            <p>Souhaite participer : {visiteur.immersion?.souhaite_participer ? "oui" : "non"}</p>
+            <p>Souhaite participer : {visiteur.immersion?.souhaite_participer ? "Oui" : "Non"}</p>
+            <p>Statut : {visiteur.immersion?.statut || "—"}</p>
             <p>Type d'événement : {visiteur.evenement?.type || "—"}</p>
         </div>
     );

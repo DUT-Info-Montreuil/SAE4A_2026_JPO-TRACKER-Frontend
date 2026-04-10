@@ -1,4 +1,3 @@
-
 import VisiteurCard from "./VisiteurCard.tsx";
 import {useVisiteurs} from "../hook/UseVisiteurs.tsx";
 import FiltresVisiteurs from "./FiltresVisiteurs.tsx";
@@ -7,7 +6,7 @@ import ExportButtons from "./ExportButtons.tsx";
 import NavAdmin from "./NavAdmin.tsx";
 import BoutonSupprimerVisiteurs from "./BoutonSupprimerVisiteurs.tsx";
 
-export default function ListerVisiteurs (){
+export default function ListerVisiteurs() {
 
     const {visiteurs, filtres, appliquerFiltres, reinitialiser, totalPages, changerPage} = useVisiteurs();
 
@@ -33,16 +32,16 @@ export default function ListerVisiteurs (){
             <table className="visiteurs-table mb-3">
                 <thead>
                 <tr>
-                    <td>Nom</td>
-                    <td>Prénom</td>
-                    <td>Email</td>
-                    <td>Code postal</td>
-                    <td>Formation d'origine</td>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Code postal</th>
+                    <th>Formation d'origine</th>
                 </tr>
                 </thead>
                 <tbody>
                 {visiteurs.map(v => (
-                    <VisiteurCard key={v.email} visiteur={v}/>
+                    <VisiteurCard key={v.id} visiteur={v}/>
                 ))}
                 </tbody>
             </table>

@@ -2,7 +2,7 @@ export interface FormValues {
     nom: string;
     prenom: string;
     email: string;
-    telephone ?: string;
+    telephone?: string;
     dateDeNaissance: string;
     situationParticuliere: boolean;
     formationOrigine: string;
@@ -13,7 +13,8 @@ export interface FormValues {
     codePostal: string;
     immersion: boolean;
     typeEvenement: "jpo" | "forum" | "autre" | "";
-    rgpd: boolean;
+    rgpdCollecte: boolean;
+    rgpdContact: boolean;
 }
 
 
@@ -32,26 +33,27 @@ export const initialValues: FormValues = {
     codePostal: "",
     immersion: false,
     typeEvenement: "",
-    rgpd: false,
+    rgpdCollecte: false,
+    rgpdContact: false,
 };
 
 
 export const formations = [
-    "BUT informatique",
+    "BUT Informatique",
     "BUT GACO",
     "BUT QLIO",
-    "BUT INFO-COM",
+    "BUT Infocom",
 ];
 
 
-export const typesFormationOrigine = [
-    "Lycéen (Bac général)",
-    "Lycéen (Bac technologique)",
-    "Lycéen (Bac professionnel)",
-    "BTS",
-    "BUT",
-    "Licence",
-    "Prépa",
-    "Master",
-    "Autre",
+export const typesFormationOrigine: { libelle: string; type: string }[] = [
+    { libelle: "Lycéen (Bac général)",       type: "bac_general" },
+    { libelle: "Lycéen (Bac technologique)", type: "bac_techno"  },
+    { libelle: "Lycéen (Bac professionnel)", type: "bac_pro"     },
+    { libelle: "BTS",                        type: "bts"         },
+    { libelle: "BUT",                        type: "but"         },
+    { libelle: "Licence",                    type: "licence"     },
+    { libelle: "Prépa",                      type: "prepa"       },
+    { libelle: "Master",                     type: "master"      },
+    { libelle: "Autre",                      type: "autre"       },
 ];

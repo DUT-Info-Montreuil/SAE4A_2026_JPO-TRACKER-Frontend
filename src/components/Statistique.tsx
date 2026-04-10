@@ -15,7 +15,7 @@ import {
 } from "chart.js";
 import { Bar, Pie, Doughnut } from "react-chartjs-2";
 import ServiceVisiteur from "../services/ServiceVisiteur.tsx";
-import "./dashboard.css"
+import "../styles/dashboard.css"
 Chart.register(
     CategoryScale, LinearScale, BarElement,
     PointElement, ArcElement, Title, Tooltip, Legend, Filler
