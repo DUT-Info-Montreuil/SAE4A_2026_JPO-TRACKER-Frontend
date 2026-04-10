@@ -1,67 +1,43 @@
-/* ===== TABLEAU VISITEURS — Charte IUT Montreuil (thème clair) ===== */
 .visiteurs-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: var(--font-body, Arial, sans-serif);
     font-size: 14px;
 }
 
-/* ===== EN-TÊTE ===== */
 .visiteurs-table thead tr {
-    border-bottom: 1px solid var(--border-default, #BFBEBE);
+    border-bottom: 0.5px solid #334155;
 }
 
 .visiteurs-table thead td {
     padding: 10px 14px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted, #7A7A7A);
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    background: var(--bg-surface, #EDECEC);
+    letter-spacing: 0.05em;
+    background: #1e293b;
 }
 
-/* Colonne triée active */
-.visiteurs-table thead td.sorted {
-    color: var(--color-teal, #6AA999);
-}
-
-/* ===== CORPS ===== */
 .visiteurs-table tbody tr {
-    border-bottom: 0.5px solid var(--border-subtle, #D6D5D5);
+    border-bottom: 0.5px solid #1e293b;
     cursor: pointer;
     transition: background 0.12s;
 }
 
 .visiteurs-table tbody tr:hover {
-    background: var(--bg-surface, #EDECEC);
-}
-
-.visiteurs-table tbody tr.selected {
-    background: var(--color-teal-subtle, #EAF4F2);
-    border-left: 2px solid var(--color-teal, #6AA999);
+    background: #1e293b;
 }
 
 .visiteurs-table tbody td {
     padding: 11px 14px;
-    color: var(--text-primary, #1C1C1C);
+    color: #e2e8f0;
 }
 
-/* Colonne nom */
 .visiteurs-table tbody td:first-child {
-    font-weight: 600;
+    font-weight: 500;
 }
 
-/* Colonne date / info secondaire */
 .visiteurs-table tbody td:nth-child(3) {
-    color: var(--text-muted, #7A7A7A);
-    font-size: 13px;
-}
-
-/* ===== ÉTAT VIDE ===== */
-.visiteurs-table tbody .empty-row td {
-    text-align: center;
-    padding: 40px;
-    color: var(--text-muted, #7A7A7A);
+    color: #94a3b8;
     font-size: 13px;
 }

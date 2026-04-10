@@ -1,4 +1,3 @@
-/* ===== ACTIONS BAR — Charte IUT Montreuil (thème clair) ===== */
 .actions-bar {
     display: flex;
     align-items: center;
@@ -6,16 +5,15 @@
     flex-wrap: wrap;
     gap: 12px;
     padding: 0.75rem 1rem;
-    background: var(--bg-surface, #EDECEC);
-    border: 0.5px solid var(--border-subtle, #D6D5D5);
+    background: #1e293b;
+    border: 0.5px solid #334155;
     border-radius: 12px;
     margin: 1rem 0;
 }
 
 .results-count {
-    font-family: var(--font-body, Arial, sans-serif);
     font-size: 13px;
-    color: var(--text-muted, #7A7A7A);
+    color: #64748b;
 }
 
 .actions-right {
@@ -25,69 +23,57 @@
     flex-wrap: wrap;
 }
 
-/* ===== BOUTONS D'EXPORT ===== */
+/* ExportButtons */
 .btn-export {
     display: flex;
     align-items: center;
     gap: 6px;
     padding: 7px 14px;
     font-size: 13px;
-    font-family: var(--font-body, Arial, sans-serif);
-    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.15s;
 }
 
-/* Export principal — fond teal */
 .btn-export-primary {
-    background: var(--color-teal, #6AA999);
-    color: #ffffff;
-    border: none;
+    background: #166534;
+    color: #dcfce7;
+    border: 0.5px solid #15803d;
 }
+.btn-export-primary:hover { background: #15803d; }
 
-.btn-export-primary:hover {
-    background: var(--color-teal-dark, #4A8878);
-}
-
-/* Export secondaire — contour teal */
 .btn-export-outline {
     background: transparent;
-    color: var(--color-teal-dark, #4A8878);
-    border: 0.5px solid var(--color-teal, #6AA999);
+    color: #4ade80;
+    border: 0.5px solid #4ade80;
 }
+.btn-export-outline:hover { background: #052e16; }
 
-.btn-export-outline:hover {
-    background: var(--color-teal-subtle, #EAF4F2);
-}
-
-/* ===== BOUTON SUPPRIMER ===== */
+/* BoutonSupprimerVisiteurs */
 .btn-delete {
     display: flex;
     align-items: center;
     gap: 6px;
     padding: 7px 14px;
     font-size: 13px;
-    font-family: var(--font-body, Arial, sans-serif);
-    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
     border-radius: 8px;
     cursor: pointer;
     background: transparent;
-    color: var(--color-burgundy, #962546);
-    border: 0.5px solid var(--color-burgundy, #962546);
-    transition: background 0.15s, color 0.15s;
+    color: #f87171;
+    border: 0.5px solid #f87171;
+    transition: background 0.15s;
 }
+.btn-delete:hover { background: #1c0a0a; }
 
-.btn-delete:hover {
-    background: var(--color-burgundy, #962546);
-    color: #ffffff;
-}
-
-/* ===== MODAL DE CONFIRMATION ===== */
+/* Modal */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,29 +81,25 @@
 }
 
 .modal-box {
-    background: var(--bg-base, #FFFFFF);
-    border: 0.5px solid var(--border-subtle, #D6D5D5);
+    background: #1e293b;
+    border: 0.5px solid #334155;
     border-radius: 12px;
     padding: 1.5rem;
     width: 360px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .modal-box h3 {
-    font-family: var(--font-display, 'Bebas Neue', Arial, sans-serif);
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    color: var(--text-primary, #1C1C1C);
+    font-size: 16px;
+    font-weight: 500;
+    color: #e2e8f0;
 }
 
 .modal-box p {
-    font-family: var(--font-body, Arial, sans-serif);
     font-size: 14px;
-    color: var(--text-secondary, #4A4A4A);
+    color: #94a3b8;
     line-height: 1.6;
 }
 
@@ -128,38 +110,29 @@
     margin-top: 4px;
 }
 
-/* Bouton annuler */
 .btn-cancel {
     padding: 7px 14px;
     font-size: 13px;
-    font-family: var(--font-body, Arial, sans-serif);
+    font-family: 'DM Sans', sans-serif;
     border-radius: 8px;
     cursor: pointer;
     background: transparent;
-    color: var(--text-secondary, #4A4A4A);
-    border: 0.5px solid var(--border-subtle, #D6D5D5);
+    color: #94a3b8;
+    border: 0.5px solid #334155;
     transition: background 0.15s;
 }
+.btn-cancel:hover { background: #0f172a; }
 
-.btn-cancel:hover {
-    background: var(--bg-surface, #EDECEC);
-}
-
-/* Bouton confirmer suppression */
 .btn-confirm {
     padding: 7px 14px;
     font-size: 13px;
-    font-family: var(--font-body, Arial, sans-serif);
-    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
     border-radius: 8px;
     cursor: pointer;
-    background: var(--color-burgundy-bg, #FCEEF2);
-    color: var(--color-burgundy, #962546);
-    border: 0.5px solid var(--color-burgundy, #962546);
-    transition: background 0.15s, color 0.15s;
+    background: #7f1d1d;
+    color: #fecaca;
+    border: 0.5px solid #991b1b;
+    transition: background 0.15s;
 }
-
-.btn-confirm:hover {
-    background: var(--color-burgundy, #962546);
-    color: #ffffff;
-}
+.btn-confirm:hover { background: #991b1b; }
