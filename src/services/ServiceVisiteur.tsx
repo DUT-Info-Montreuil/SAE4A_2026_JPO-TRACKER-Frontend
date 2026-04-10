@@ -15,12 +15,12 @@ export default class ServiceVisiteur {
             email:             visiteur.email,
             telephone:         visiteur.telephone || null,
             date_de_naissance: visiteur.dateDeNaissance || null,
-            situation_particuliere: visiteur.situationParticuliere,
+            situation_particulier: visiteur.situationParticuliere,  // ← "e" retiré
             formation_origine: {
                 type:    visiteur.formationOrigine,
                 libelle: visiteur.formationOrigineDetail,
             },
-            "etablisement_d'origine": {
+            etablissement_origine: {   // ← corrigé (était "etablisement_d'origine")
                 nom: visiteur.lycee,
             },
             adresse: {
