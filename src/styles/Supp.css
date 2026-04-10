@@ -1,0 +1,22 @@
+.btn-row-delete {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #7f1d1d;
+    color: #fecaca;
+    border: 0.5px solid #991b1b;
+    transition: background 0.15s;
+}
+
+.btn-row-delete:hover {
+    background: #991b1b;
+}
+
+.btn-row-delete.confirming {
+    color: #fecaca;
+    background: #7f1d1d;
+    border-color: #991b1b;
+}

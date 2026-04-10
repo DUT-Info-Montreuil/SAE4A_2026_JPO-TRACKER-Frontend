@@ -30,7 +30,7 @@ export default function ListerVisiteurs() {
             </div>
 
             <table className="visiteurs-table mb-3">
-                <thead>
+                <thead >
                 <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
@@ -41,7 +41,7 @@ export default function ListerVisiteurs() {
                 </thead>
                 <tbody>
                 {visiteurs.map(v => (
-                    <VisiteurCard key={v.id} visiteur={v}/>
+                    <VisiteurCard key={v.id} visiteur={v} onDeleted={reinitialiser}/>
                 ))}
                 </tbody>
             </table>

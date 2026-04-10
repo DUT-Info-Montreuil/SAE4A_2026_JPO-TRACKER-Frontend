@@ -20,7 +20,7 @@ export default class ServiceVisiteur {
                 type:    visiteur.formationOrigine,
                 libelle: visiteur.formationOrigineDetail,
             },
-            "établisement_d'origine": {
+            "etablisement_d'origine": {
                 nom: visiteur.lycee,
             },
             adresse: {
@@ -121,6 +121,21 @@ export default class ServiceVisiteur {
                 console.error(error);
                 throw error;
             });
+    }
+
+    static deleteById(id: string): Promise<void> {
+        const token = localStorage.getItem("token");
+
+        return fetch(`${URL}/visiteurs/${id}`, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` },
+        })
+            .then(async res => {
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error);
+                return data;
+            })
+            .catch(error => { throw error; });
     }
 
 }
