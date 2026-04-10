@@ -94,11 +94,13 @@ export default function FormulaireVisiteur() {
                                             <label>Code postal*</label>
                                         </div>
                                     </div>
-                                    <div className="form-check mt-3">
-                                        <input className="form-check-input" type="checkbox" id="situationParticuliere"
-                                               name="situationParticuliere" checked={form.situationParticuliere}
-                                               onChange={handleChange}/>
-                                        <label className="form-check-label" htmlFor="situationParticuliere">J'ai une situation particulière</label>
+                                    <div className="col-12">
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="situationParticuliere"
+                                                   name="situationParticuliere" checked={form.situationParticuliere}
+                                                   onChange={handleChange}/>
+                                            <label className="form-check-label" htmlFor="situationParticuliere">J'ai une situation particulière</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

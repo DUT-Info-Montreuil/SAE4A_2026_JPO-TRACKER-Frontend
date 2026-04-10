@@ -47,7 +47,7 @@ export default function FiltresVisiteurs({filtres, onFiltres, onReinit}: Filtres
                     <label>Formation d'origine</label>
                     <select name="formationOrigine" value={filtres.formationOrigine} onChange={handleSelect}>
                         <option value="">Toutes</option>
-                        {typesFormationOrigine.map(t => <option key={t} value={t}>{t}</option>)}
+                        {typesFormationOrigine.map((t) => <option key={t.type} value={t.type}>{t.libelle}</option>)}
                     </select>
                 </div>
             </div>
